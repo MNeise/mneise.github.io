@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>
+<channel>
+<atom:link href='http://mneise.github.io' rel='self' type='application/rss+xml'/>
+<generator>
+clj-rss
+</generator>
+<title>
+My Blog
+</title>
+<link>
+http://mneise.github.io
+</link>
+<description>
+Some updates and thoughts
+</description>
+<lastBuildDate>
+Sat, 23 May 2015 19:51:00 +1200
+</lastBuildDate>
+<author>
+Maria Neise
+</author>
+<item>
+<guid>
+http://mneise.github.io/posts/2015-05-22-hello-world.html
+</guid>
+<link>
+http://mneise.github.io/posts/2015-05-22-hello-world.html
+</link>
+<title>
+Hello, World!
+</title>
+<description>
+
+</description>
+<pubDate>
+Fri, 22 May 2015 00:00:00 +1200
+</pubDate>
+<author>
+Maria Neise
+</author>
+</item>
+</channel>
+</rss>
