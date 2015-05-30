@@ -1,6 +1,11 @@
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
+    margin-top: 40px;
+}
+
+#post-tags {
+    margin-top: 20px;
+}
+
+#prev-next {
+    margin-top: 10px;
 }
