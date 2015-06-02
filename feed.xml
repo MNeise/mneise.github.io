@@ -15,26 +15,64 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Sat, 30 May 2015 22:14:59 +1200
+Tue, 02 Jun 2015 11:21:54 -0500
 </lastBuildDate>
 <author>
 Maria Neise
 </author>
 <item>
 <guid>
-http://mneise.github.io/posts/2015-05-22-hello-world.html
+http://mneise.github.io/posts/2015-06-02-week-1.html
 </guid>
 <link>
-http://mneise.github.io/posts/2015-05-22-hello-world.html
+http://mneise.github.io/posts/2015-06-02-week-1.html
 </link>
 <title>
-Hello, World!
+GSoC: Week 1
 </title>
 <description>
+&lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Last week was the first week of my Google's Summer of Code project. The first part of the project that I will be working on is adding JavaScript module support to ClojureScript, meaning that CommonJS, AMD and ECMAScript 6 modules can be included into a ClojureScript project. For this, we will be using functionality that is already included in the Google Closure compiler. The Google Closure compiler has the classes &lt;code&gt;ProcessCommonJSModules&lt;/code&gt; and &lt;code&gt;ProcessEs6Modules&lt;/code&gt;, which each convert either a CommonJS or ECMAScript 6 module into a Google Closure module. To be able to use those two classes directly from within the ClojureScript compiler, we needed to make the classes and its constructors public. Luckily, our &lt;a href='https://github.com/google/closure-compiler/pull/952'&gt;pull request&lt;/a&gt; to the Google Closure compiler project got accepted and our changes should be included in the next release of the project. With those changes in place, I started off by working on including a CommonJS module into a ClojureScript project. Following, I will try to describe which functionality we will need to add to the ClojurScript compiler so that users can include a CommonJS module without modifying it.&lt;/p&gt;&lt;p&gt;Assume we have the following simple CommonJS module in &lt;code&gt;libs/greeting.js&lt;/code&gt;:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;exports.hello = function&amp;#40;name&amp;#41; {
+    return &amp;quot;Hello, &amp;quot; + name;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We can include this module as a foreign library. To specify the module type, we will be adding a new compiler option called &lt;code&gt;module-type&lt;/code&gt;, which can have the values &lt;code&gt;:commonjs&lt;/code&gt;, &lt;code&gt;:es6&lt;/code&gt; and &lt;code&gt;:amd&lt;/code&gt;.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&amp;#40;require 'cljs.build.api&amp;#41;
 
+&amp;#40;cljs.build.api/build &amp;quot;src&amp;quot;
+                      {:main 'hello-world.core
+                       :output-to &amp;quot;out/main.js&amp;quot;
+                       :foreign-libs &amp;#91;{:file &amp;quot;libs/greeting.js&amp;quot;
+                                       :provides &amp;#91;&amp;quot;greeting&amp;quot;&amp;#93;
+                                       :module-type :commonjs}&amp;#93;}&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To be able to use the functionality provided by the module, we need to require it into our namespace with the same name that we used in the &lt;code&gt;provides&lt;/code&gt; compiler option for the module.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&amp;#40;ns hello-world.core
+  &amp;#40;:require &amp;#91;greeting&amp;#93;&amp;#41;&amp;#41;
+
+&amp;#40;enable-console-print!&amp;#41;
+
+&amp;#40;println &amp;#40;.hello js/greeting &amp;quot;World!&amp;quot;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If the ClojureScript compiler would try to handle the module the same way as any other foreign library, we would get the following errors:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week1-error1.png&quot; alt=&quot;error 1&quot; /&gt;&lt;/p&gt;&lt;p&gt;We are getting the first error, because the Google Closure dependency management system doesn't implement the CommonJS specification. To get rid of the first error, we need to convert the CommonJS module into a form that is understood by the Google Closure dependency management system and can be used in combination with other Google Closure modules. For this task, we can use the &lt;code&gt;ProcessCommonJSModules&lt;/code&gt; class. Instead of wrapping everything in a function it adds a filename based prefix to the global variables and adds a &lt;code&gt;goog.provide&lt;/code&gt; statement.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;goog.provide&amp;#40;&amp;quot;module$libs$greeting&amp;quot;&amp;#41;;
+var module$libs$greeting = {};
+module$libs$greeting.hello = function&amp;#40;name&amp;#41; {
+  return &amp;quot;Hello, &amp;quot; + name;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Converting the CommonJS module helps us to get rid of the &lt;code&gt;exports&lt;/code&gt; error, but we are still left with the &lt;code&gt;greeting is not defined&lt;/code&gt; error. If you have a look at the JavaScript that the compiler emitted, you can see that we are requiring the module as &lt;code&gt;greeting&lt;/code&gt; and later use the &lt;code&gt;greeting&lt;/code&gt; object to call the &lt;code&gt;hello&lt;/code&gt; function on.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;// Compiled by ClojureScript 0.0-0000 {}
+goog.provide&amp;#40;'hello&amp;#95;world.core'&amp;#41;;
+goog.require&amp;#40;'cljs.core'&amp;#41;;
+goog.require&amp;#40;'greeting'&amp;#41;;
+cljs.core.enable&amp;#95;console&amp;#95;print&amp;#95;BANG&amp;#95;.call&amp;#40;null&amp;#41;;
+cljs.core.println.call&amp;#40;null,greeting.hello&amp;#40;&amp;quot;World!&amp;quot;&amp;#41;&amp;#41;;
+
+//# sourceMappingURL=core.js.map
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looking at the rewritten module code we can see that we should be using &lt;code&gt;module$libs$greeting&lt;/code&gt; to refer to the module instead. This means, in the ClojureScript compiler whenever we see a reference to the module using the &quot;old&quot; name (&lt;code&gt;greeting&lt;/code&gt;) while emitting the JavaScript we need to replace it with the &quot;new&quot; name (&lt;code&gt;module$libs$greeting&lt;/code&gt;).&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;// Compiled by ClojureScript 0.0-0000 {}
+goog.provide&amp;#40;'hello&amp;#95;world.core'&amp;#41;;
+goog.require&amp;#40;'cljs.core'&amp;#41;;
+goog.require&amp;#40;'module$libs$greeting'&amp;#41;;
+cljs.core.enable&amp;#95;console&amp;#95;print&amp;#95;BANG&amp;#95;.call&amp;#40;null&amp;#41;;
+cljs.core.println.call&amp;#40;null,module$libs$greeting.hello&amp;#40;&amp;quot;World!&amp;quot;&amp;#41;&amp;#41;;
+
+//# sourceMappingURL=core.js.map
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To see a first version of this approach, have a look at my GitHub &lt;a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'&gt;branch&lt;/a&gt;. At the moment, it only works when using the optimization level &lt;code&gt;:none&lt;/code&gt;, but I will be working on adding support for other optimization levels this week.&lt;/p&gt;
 </description>
 <pubDate>
-Fri, 22 May 2015 00:00:00 +1200
+Tue, 02 Jun 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
