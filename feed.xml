@@ -15,7 +15,7 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Tue, 02 Jun 2015 11:21:54 -0500
+Tue, 02 Jun 2015 16:52:19 -0500
 </lastBuildDate>
 <author>
 Maria Neise
@@ -69,7 +69,7 @@ cljs.core.enable&amp;#95;console&amp;#95;print&amp;#95;BANG&amp;#95;.call&amp;#4
 cljs.core.println.call&amp;#40;null,module$libs$greeting.hello&amp;#40;&amp;quot;World!&amp;quot;&amp;#41;&amp;#41;;
 
 //# sourceMappingURL=core.js.map
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To see a first version of this approach, have a look at my GitHub &lt;a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'&gt;branch&lt;/a&gt;. At the moment, it only works when using the optimization level &lt;code&gt;:none&lt;/code&gt;, but I will be working on adding support for other optimization levels this week.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To see the current progress, have a look at the GitHub &lt;a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
 </description>
 <pubDate>
 Tue, 02 Jun 2015 00:00:00 -0500
