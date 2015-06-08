@@ -91,18 +91,20 @@ exports.hello = function&#40;name&#41; {
        :provides &#91;&quot;german&quot;&#93;
        :module-type :commonjs}&#93;}&#41;
 </code></pre><p>In general, to be able to resolve and check JavaScript dependencies for a ClojureScript namespace, the ClojureScript compiler first constructs a JavaScript dependency index using the compiler options. This index not only contains the dependencies that are passed via the compiler options <code>:foreign-libs</code> and <code>:libs</code>, but also contains entries for the modules that are listed in <a href='https://github.com/google/closure-library/blob/master/closure/goog/deps.js'>goog/deps.js</a>. The dependency index is indexed by namespaces and each entry contains a map with more information about that namespace, e.g. the location of the file or which other modules this namespace requires. For example, for our example above we would like to have entries in the dependency index similar to the following:</p><pre><code class="clojure">{...
- greeting {:file libs/greeting.js
-           :provides &#91;greeting&#93;
-           :foreign true
-           :url #object&#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&#95;world/libs/greeting.js&#93;
-           :module-type :commonjs
-           :requires &#91;german&#93;}
- german {:file libs/german.js
-         :provides &#91;german&#93;
-         :foreign true
-         :url #object&#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&#95;world/libs/german.js&#93;
-         :module-type :commonjs
-         :requires &#91;&#93;}
+ greeting
+   {:file libs/greeting.js
+    :provides &#91;greeting&#93;
+    :foreign true
+    :url #object&#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&#95;world/libs/greeting.js&#93;
+    :module-type :commonjs
+    :requires &#91;german&#93;}
+ german
+   {:file libs/german.js
+    :provides &#91;german&#93;
+    :foreign true
+    :url #object&#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&#95;world/libs/german.js&#93;
+    :module-type :commonjs
+    :requires &#91;&#93;}
 ...}
 </code></pre><p>In the example above, we can see that the map for the <code>greeting</code> module contains an entry under the <code>:requires</code> key which holds a vector with all the namespaces that are required. To create this entry, we would need to be able to parse calls to the <code>require</code> function from CommonJS modules and later also for AMD and ECMAScript 6 modules, which both use a different syntax to import modules. Instead of writing parsers for three different module specifications, we've decided to go with a different approach for now that uses existing functionality. The ClojureScript compiler already includes the functionality to parse the <code>provide</code> and <code>require</code> statements from Google Closure-compatible JavaScript files which are included into the project using the <code>:libs</code> option. As mentioned in my previous post, we are using the Google Closure compiler to convert JavaScript modules to Google Closure modules to be able to include them into a ClojureScript project. This means, before creating the dependency index we convert the CommonJS modules into Google Closure modules and write them to disk.</p><pre><code class="javascript">// out/german.js
 goog.provide&#40;&quot;module$libs$german&quot;&#41;;
@@ -123,16 +125,18 @@ module$libs$greeting.hello = function&#40;name&#41; {
  :libs &#91;&quot;out/greeting.js&quot; &quot;out/german.js&quot;&#93;
  :main 'hello-world.core}
 </code></pre><p>Instead of passing the modules as foreign libraries we now pass them via the <code>:libs</code> compiler option to build the dependency index. Note that also the path to the files has changed to point to the converted version of the modules. This means, the modules will be treated as "normal" Google Closure-compatible JavaScript files by the compiler and the imports for our <code>greeting</code> module will be extracted successfully. The entries in the JavaScript dependency index will look similar to the following:</p><pre><code class="clojure">{...
- module$libs$greeting {:requires &#91;module$libs$german&#93;
-                       :provides &#91;module$libs$greeting&#93;
-                       :url #object&#91;java.net.URL 0x4a067c25 file:/Users/marianeise/Documents/development/hello&#95;world/out/greeting.js&#93;
-                       :closure-lib true
-                       :lib-path out/greeting.js}
- module$libs$german {:requires &#91;&#93;
-                     :provides &#91;module$libs$german&#93;
-                     :url #object&#91;java.net.URL 0xa1217f9 file:/Users/marianeise/Documents/development/hello&#95;world/out/german.js&#93;
-                     :closure-lib true
-                     :lib-path out/german.js}
+ module$libs$greeting
+   {:requires &#91;module$libs$german&#93;
+    :provides &#91;module$libs$greeting&#93;
+    :url #object&#91;java.net.URL 0x4a067c25 file:/Users/marianeise/Documents/development/hello&#95;world/out/greeting.js&#93;
+    :closure-lib true
+    :lib-path out/greeting.js}
+ module$libs$german
+   {:requires &#91;&#93;
+    :provides &#91;module$libs$german&#93;
+    :url #object&#91;java.net.URL 0xa1217f9 file:/Users/marianeise/Documents/development/hello&#95;world/out/german.js&#93;
+    :closure-lib true
+    :lib-path out/german.js}
 ...}
 </code></pre><p>To learn more about the dependency index, have a look at <a href='https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/js&#95;deps.clj'>js&#95;deps.clj</a> in the ClojureScript project. To see the current progress for this project, have a look at the GitHub <a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'>branch</a>.</p>
 </div>

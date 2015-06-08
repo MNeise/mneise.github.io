@@ -15,7 +15,7 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Mon, 08 Jun 2015 17:49:57 -0500
+Mon, 08 Jun 2015 17:54:53 -0500
 </lastBuildDate>
 <author>
 Maria Neise
@@ -54,18 +54,20 @@ exports.hello = function&amp;#40;name&amp;#41; {
        :provides &amp;#91;&amp;quot;german&amp;quot;&amp;#93;
        :module-type :commonjs}&amp;#93;}&amp;#41;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In general, to be able to resolve and check JavaScript dependencies for a ClojureScript namespace, the ClojureScript compiler first constructs a JavaScript dependency index using the compiler options. This index not only contains the dependencies that are passed via the compiler options &lt;code&gt;:foreign-libs&lt;/code&gt; and &lt;code&gt;:libs&lt;/code&gt;, but also contains entries for the modules that are listed in &lt;a href='https://github.com/google/closure-library/blob/master/closure/goog/deps.js'&gt;goog/deps.js&lt;/a&gt;. The dependency index is indexed by namespaces and each entry contains a map with more information about that namespace, e.g. the location of the file or which other modules this namespace requires. For example, for our example above we would like to have entries in the dependency index similar to the following:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;{...
- greeting {:file libs/greeting.js
-           :provides &amp;#91;greeting&amp;#93;
-           :foreign true
-           :url #object&amp;#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&amp;#95;world/libs/greeting.js&amp;#93;
-           :module-type :commonjs
-           :requires &amp;#91;german&amp;#93;}
- german {:file libs/german.js
-         :provides &amp;#91;german&amp;#93;
-         :foreign true
-         :url #object&amp;#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&amp;#95;world/libs/german.js&amp;#93;
-         :module-type :commonjs
-         :requires &amp;#91;&amp;#93;}
+ greeting
+   {:file libs/greeting.js
+    :provides &amp;#91;greeting&amp;#93;
+    :foreign true
+    :url #object&amp;#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&amp;#95;world/libs/greeting.js&amp;#93;
+    :module-type :commonjs
+    :requires &amp;#91;german&amp;#93;}
+ german
+   {:file libs/german.js
+    :provides &amp;#91;german&amp;#93;
+    :foreign true
+    :url #object&amp;#91;java.net.URL 0x523424b5 file:/Users/marianeise/Documents/development/hello&amp;#95;world/libs/german.js&amp;#93;
+    :module-type :commonjs
+    :requires &amp;#91;&amp;#93;}
 ...}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the example above, we can see that the map for the &lt;code&gt;greeting&lt;/code&gt; module contains an entry under the &lt;code&gt;:requires&lt;/code&gt; key which holds a vector with all the namespaces that are required. To create this entry, we would need to be able to parse calls to the &lt;code&gt;require&lt;/code&gt; function from CommonJS modules and later also for AMD and ECMAScript 6 modules, which both use a different syntax to import modules. Instead of writing parsers for three different module specifications, we've decided to go with a different approach for now that uses existing functionality. The ClojureScript compiler already includes the functionality to parse the &lt;code&gt;provide&lt;/code&gt; and &lt;code&gt;require&lt;/code&gt; statements from Google Closure-compatible JavaScript files which are included into the project using the &lt;code&gt;:libs&lt;/code&gt; option. As mentioned in my previous post, we are using the Google Closure compiler to convert JavaScript modules to Google Closure modules to be able to include them into a ClojureScript project. This means, before creating the dependency index we convert the CommonJS modules into Google Closure modules and write them to disk.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;// out/german.js
 goog.provide&amp;#40;&amp;quot;module$libs$german&amp;quot;&amp;#41;;
@@ -86,16 +88,18 @@ module$libs$greeting.hello = function&amp;#40;name&amp;#41; {
  :libs &amp;#91;&amp;quot;out/greeting.js&amp;quot; &amp;quot;out/german.js&amp;quot;&amp;#93;
  :main 'hello-world.core}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Instead of passing the modules as foreign libraries we now pass them via the &lt;code&gt;:libs&lt;/code&gt; compiler option to build the dependency index. Note that also the path to the files has changed to point to the converted version of the modules. This means, the modules will be treated as &quot;normal&quot; Google Closure-compatible JavaScript files by the compiler and the imports for our &lt;code&gt;greeting&lt;/code&gt; module will be extracted successfully. The entries in the JavaScript dependency index will look similar to the following:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;{...
- module$libs$greeting {:requires &amp;#91;module$libs$german&amp;#93;
-                       :provides &amp;#91;module$libs$greeting&amp;#93;
-                       :url #object&amp;#91;java.net.URL 0x4a067c25 file:/Users/marianeise/Documents/development/hello&amp;#95;world/out/greeting.js&amp;#93;
-                       :closure-lib true
-                       :lib-path out/greeting.js}
- module$libs$german {:requires &amp;#91;&amp;#93;
-                     :provides &amp;#91;module$libs$german&amp;#93;
-                     :url #object&amp;#91;java.net.URL 0xa1217f9 file:/Users/marianeise/Documents/development/hello&amp;#95;world/out/german.js&amp;#93;
-                     :closure-lib true
-                     :lib-path out/german.js}
+ module$libs$greeting
+   {:requires &amp;#91;module$libs$german&amp;#93;
+    :provides &amp;#91;module$libs$greeting&amp;#93;
+    :url #object&amp;#91;java.net.URL 0x4a067c25 file:/Users/marianeise/Documents/development/hello&amp;#95;world/out/greeting.js&amp;#93;
+    :closure-lib true
+    :lib-path out/greeting.js}
+ module$libs$german
+   {:requires &amp;#91;&amp;#93;
+    :provides &amp;#91;module$libs$german&amp;#93;
+    :url #object&amp;#91;java.net.URL 0xa1217f9 file:/Users/marianeise/Documents/development/hello&amp;#95;world/out/german.js&amp;#93;
+    :closure-lib true
+    :lib-path out/german.js}
 ...}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To learn more about the dependency index, have a look at &lt;a href='https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/js&amp;#95;deps.clj'&gt;js&amp;#95;deps.clj&lt;/a&gt; in the ClojureScript project. To see the current progress for this project, have a look at the GitHub &lt;a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
 </description>
