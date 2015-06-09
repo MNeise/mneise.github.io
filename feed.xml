@@ -15,7 +15,7 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Mon, 08 Jun 2015 17:54:53 -0500
+Mon, 08 Jun 2015 19:56:46 -0500
 </lastBuildDate>
 <author>
 Maria Neise
@@ -101,7 +101,7 @@ module$libs$greeting.hello = function&amp;#40;name&amp;#41; {
     :closure-lib true
     :lib-path out/german.js}
 ...}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To learn more about the dependency index, have a look at &lt;a href='https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/js&amp;#95;deps.clj'&gt;js&amp;#95;deps.clj&lt;/a&gt; in the ClojureScript project. To see the current progress for this project, have a look at the GitHub &lt;a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To learn more about the dependency index, have a look at &lt;a href='https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/js&amp;#95;deps.clj'&gt;js&amp;#95;deps.clj&lt;/a&gt; in the ClojureScript project. To see the current progress for this project, have a look at the GitHub &lt;a href='https://github.com/mneise/clojurescript/tree/CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
 </description>
 <pubDate>
 Mon, 08 Jun 2015 00:00:00 -0500
@@ -159,7 +159,7 @@ cljs.core.enable&amp;#95;console&amp;#95;print&amp;#95;BANG&amp;#95;.call&amp;#4
 cljs.core.println.call&amp;#40;null,module$libs$greeting.hello&amp;#40;&amp;quot;World!&amp;quot;&amp;#41;&amp;#41;;
 
 //# sourceMappingURL=core.js.map
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Finally, we get our &lt;code&gt;Hello, World!&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week1-hello.png&quot; alt=&quot;Hello, World!&quot; /&gt;&lt;/p&gt;&lt;p&gt;To see the current progress, have a look at the GitHub &lt;a href='https://github.com/clojure/clojurescript/compare/master...MNeise:CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Finally, we get our &lt;code&gt;Hello, World!&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week1-hello.png&quot; alt=&quot;Hello, World!&quot; /&gt;&lt;/p&gt;&lt;p&gt;To see the current progress, have a look at the GitHub &lt;a href='https://github.com/mneise/clojurescript/tree/CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
 </description>
 <pubDate>
 Tue, 02 Jun 2015 00:00:00 -0500
