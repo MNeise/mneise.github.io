@@ -15,11 +15,47 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Wed, 10 Jun 2015 19:59:33 -0500
+Mon, 15 Jun 2015 15:37:50 -0500
 </lastBuildDate>
 <author>
 Maria Neise
 </author>
+<item>
+<guid>
+http://mneise.github.io/posts/2015-06-15-week-3.html
+</guid>
+<link>
+http://mneise.github.io/posts/2015-06-15-week-3.html
+</link>
+<title>
+GSoC: Week 3
+</title>
+<description>
+&lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Last week, David merged the first &lt;a href='https://github.com/clojure/clojurescript/commit/47947137127c9a724fafbeb17c5f7af7412809de'&gt;patch&lt;/a&gt; for CommonJS support into the ClojureScript compiler. This is a good first step. Following, I will describe how you can try out the changes and include a CommonJS module into a ClojureScript project.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;build&amp;#95;clojurescript&quot;&gt;&lt;/a&gt;Build ClojureScript&lt;/h4&gt;&lt;p&gt;For this to work, we need to compile our own ClojureScript compiler as the most recent version &lt;code&gt;0.0-3308&lt;/code&gt; doesn't include the changes yet. So go ahead and clone the ClojureScript repository:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:clojure/clojurescript.git
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we need to build a version of the ClojureScript compiler. I will describe two ways to do this. Which way you choose depends on your ClojureScript project setup.&lt;/p&gt;&lt;h5&gt;&lt;a name=&quot;without&amp;#95;a&amp;#95;build&amp;#95;tool&quot;&gt;&lt;/a&gt;Without a build tool&lt;/h5&gt;&lt;p&gt;For a simple setup follow the ClojureScript &lt;a href='https://github.com/clojure/clojurescript/wiki/Quick-Start'&gt;Quick Start tutorial&lt;/a&gt;, but instead of downloading an existing stand-alone ClojureScript JAR, we will build our own. Change to your ClojureScript directory that you just cloned and build the JAR using an existing script:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ ./script/uberjar
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This will create a stand-alone jar in the &lt;code&gt;target&lt;/code&gt; directory under the name &lt;code&gt;cljs.jar&lt;/code&gt;. Now go to your project directory and copy the JAR:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ cp CLJS&amp;#95;PATH/target/cljs.jar .
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Assuming you followed the ClojureScript Quick Start tutorial and your build script is located under &lt;code&gt;build.clj&lt;/code&gt; you can build your project with:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ java -cp cljs.jar:src clojure.main build.clj
+&lt;/code&gt;&lt;/pre&gt;&lt;h5&gt;&lt;a name=&quot;with&amp;#95;a&amp;#95;build&amp;#95;tool&quot;&gt;&lt;/a&gt;With a build tool&lt;/h5&gt;&lt;p&gt;If you are using a build tool, you need to install a new version of ClojureScript into your local maven repository. For this, change to the ClojureScript repository you just cloned and execute the following script:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ ./script/build
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This should install a new version of ClojureScript. To get the version, check the output of the script, e.g. it should say something similar to this:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;&amp;#91;INFO&amp;#93; Installing /Users/marianeise/Documents/development/clojurescript/target/clojurescript-0.0-3332.jar to /Users/marianeise/.m2/repository/org/clojure/clojurescript/0.0-3332/clojurescript-0.0-3332.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In this case, the version you would need to use is &lt;code&gt;0.0-3332&lt;/code&gt;.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;compiler&amp;#95;options&quot;&gt;&lt;/a&gt;Compiler Options&lt;/h4&gt;&lt;p&gt;To support JavaScript modules we added the compiler option &lt;code&gt;:module-type&lt;/code&gt; for foreign libraries, which later on should support the values &lt;code&gt;:commonjs&lt;/code&gt;, &lt;code&gt;:amd&lt;/code&gt; and &lt;code&gt;:es6&lt;/code&gt;. For now, only &lt;code&gt;:commonjs&lt;/code&gt; is supported. You can include a CommonJS module as follows:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;:foreign-libs &amp;#91;{:file &amp;quot;libs/greeting.js&amp;quot;
+                :provides &amp;#91;&amp;quot;greeting&amp;quot;&amp;#93;
+                :module-type :commonjs}&amp;#93;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If your CommonJS module depends on other modules, you also need to add them, e.g.:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;:foreign-libs &amp;#91;{:file &amp;quot;libs/greeting.js&amp;quot;
+                :provides &amp;#91;&amp;quot;greeting&amp;quot;&amp;#93;
+                :module-type :commonjs}
+               {:file &amp;quot;libs/german.js&amp;quot;
+                :provides &amp;#91;&amp;quot;german&amp;quot;&amp;#93;
+                :module-type :commonjs}&amp;#93;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;&lt;a name=&quot;known&amp;#95;issues&quot;&gt;&lt;/a&gt;Known issues&lt;/h4&gt;&lt;p&gt;This feature is still &quot;work in progress&quot;. You can read about known issues here:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href='http://dev.clojure.org/jira/browse/CLJS-1312'&gt;CommonJS support: Properly convert JS lib idiom for adding module support for multiple specifications&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://dev.clojure.org/jira/browse/CLJS-1311'&gt;Improve error reporting when converting CommonJS modules&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+</description>
+<pubDate>
+Mon, 15 Jun 2015 00:00:00 -0500
+</pubDate>
+<author>
+Maria Neise
+</author>
+</item>
 <item>
 <guid>
 http://mneise.github.io/posts/2015-06-08-week-2.html
