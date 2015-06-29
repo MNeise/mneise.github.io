@@ -15,11 +15,31 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Mon, 22 Jun 2015 22:46:24 +0200
+Tue, 30 Jun 2015 00:55:18 +0200
 </lastBuildDate>
 <author>
 Maria Neise
 </author>
+<item>
+<guid>
+http://mneise.github.io/posts/2015-06-29-week-5.html
+</guid>
+<link>
+http://mneise.github.io/posts/2015-06-29-week-5.html
+</link>
+<title>
+GSoC: Week 5
+</title>
+<description>
+&lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;The Google Summer of Code student midterm evaluations are due this week on 3 July 2015 at 19:00 UTC, so I will use this post to write about my experience with the Google Summer of Code program, reflect on the previous 5 weeks and talk about the tasks for the next following 8 weeks.&lt;/p&gt;&lt;p&gt;The Google Summer of Code program has been a great opportunity for me to start contributing to open source and to connect with the Clojure community. Many great projects have come out of it, such as &lt;a href='https://twitter.com/ambrosebs'&gt;Ambrose Bonnaire-Sergeant's&lt;/a&gt; &lt;a href='http://typedclojure.org/'&gt;Typed Clojure&lt;/a&gt;, and students as well as organizations are benefiting from GSoC. As much as I value the GSoC program, there is still room for improvement. In particular, communication between GSoC students is not promoted by the program organizers which is likely one reason for the lack of community between GSoC students.&lt;/p&gt;&lt;p&gt;Then again, the Clojure and ClojureScript community has been really welcoming and helpful. Many people seem to be excited about this project and I've only had positive interactions with other Clojurians so far. My mentor for this project, &lt;a href='https://twitter.com/swannodette'&gt;David Nolen&lt;/a&gt;, has been more than helpful, very responsive and has been doing a lot to promote this GSoC project. Also, a big thank you to &lt;a href='https://twitter.com/mfikes'&gt;Mike Fikes&lt;/a&gt;, who has been trying out the CommonJS support in &lt;a href='http://blog.fikesfarm.com/posts/2015-06-17-commonjs-libs-in-ambly.html'&gt;Ambly&lt;/a&gt; and has given me very valuable feedback.&lt;/p&gt;&lt;p&gt;Regarding the project itself, we are making good progress and are sticking to the estimated schedule. We've added support for CommonJS, AMD and ECMAScript 2015 to ClojureScript and submitted two pull requests to the Google Closure compiler. For the following weeks, we will continue to improve the JavaScript module support and will work on generating externs for foreign libraries. So stay tuned, there is more to come ;)&lt;/p&gt;
+</description>
+<pubDate>
+Mon, 29 Jun 2015 00:00:00 +0200
+</pubDate>
+<author>
+Maria Neise
+</author>
+</item>
 <item>
 <guid>
 http://mneise.github.io/posts/2015-06-22-week-4.html

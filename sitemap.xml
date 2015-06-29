@@ -5,7 +5,7 @@
 http://mneise.github.io404.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -13,7 +13,7 @@ http://mneise.github.io404.html
 http://mneise.github.ioarchives.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -21,7 +21,7 @@ http://mneise.github.ioarchives.html
 http://mneise.github.ioindex.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -29,7 +29,7 @@ http://mneise.github.ioindex.html
 http://mneise.github.iopages/about.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -37,7 +37,7 @@ http://mneise.github.iopages/about.html
 http://mneise.github.ioposts/2015-06-02-week-1.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -45,7 +45,7 @@ http://mneise.github.ioposts/2015-06-02-week-1.html
 http://mneise.github.ioposts/2015-06-08-week-2.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -53,7 +53,7 @@ http://mneise.github.ioposts/2015-06-08-week-2.html
 http://mneise.github.ioposts/2015-06-15-week-3.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -61,7 +61,15 @@ http://mneise.github.ioposts/2015-06-15-week-3.html
 http://mneise.github.ioposts/2015-06-22-week-4.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
+</lastmod>
+</url>
+<url>
+<loc>
+http://mneise.github.ioposts/2015-06-29-week-5.html
+</loc>
+<lastmod>
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -69,7 +77,7 @@ http://mneise.github.ioposts/2015-06-22-week-4.html
 http://mneise.github.iotags/cljs.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 <url>
@@ -77,7 +85,7 @@ http://mneise.github.iotags/cljs.html
 http://mneise.github.iotags/gsoc.html
 </loc>
 <lastmod>
-2015-06-22
+2015-06-30
 </lastmod>
 </url>
 </urlset>
