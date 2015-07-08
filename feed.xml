@@ -15,11 +15,98 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Tue, 30 Jun 2015 00:55:18 +0200
+Wed, 08 Jul 2015 09:08:30 +0200
 </lastBuildDate>
 <author>
 Maria Neise
 </author>
+<item>
+<guid>
+http://mneise.github.io/posts/2015-07-08-week-6.html
+</guid>
+<link>
+http://mneise.github.io/posts/2015-07-08-week-6.html
+</link>
+<title>
+GSoC: Week 6
+</title>
+<description>
+&lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;In this post I will write a bit about the midterm evaluations and also about the UMD pattern.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;midterm&amp;#95;evaluations&quot;&gt;&lt;/a&gt;Midterm evaluations&lt;/h4&gt;&lt;p&gt;The Google Summer of Code midterm evaluations were due last Friday (July 3rd), meaning that every student and every mentor had to submit an evaluation about the current progress of their project and students had to evaluate their mentor(s) and vice versa. In almost all cases, students will never see the mentor's evaluation and a mentor will never see the student's evaluation. Only the GSoC program administrators have access to all the evaluation data. Students will only receive an email notifying them if they have passed or failed the midterm evaluation. So, it is recommended that students talk directly to their mentor and ask about feedback. My mentor, David Nolen, and I have been trying to do this throughout the project, and I am happy to announce that I have passed my midterm evaluation :).&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;umd&quot;&gt;&lt;/a&gt;UMD&lt;/h4&gt;&lt;p&gt;To test the CommonJS and AMD support, I checked &lt;a href='https://github.com/cljsjs/packages'&gt;CLJSJS&lt;/a&gt; for JavaScript libraries and tried to include them into a ClojureScript project using the CommonJS or AMD module compiler option. For example, I tried to include &lt;a href='http://d3js.org/'&gt;d3&lt;/a&gt;, &lt;a href='http://hammerjs.github.io/'&gt;hammerjs&lt;/a&gt;, &lt;a href='http://chancejs.com/'&gt;Chance&lt;/a&gt; and &lt;a href='https://codemirror.net/index.html'&gt;CodeMirror&lt;/a&gt;. The following is a small example which uses d3 to change the color of a circle depending on the value given in an input field.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;;; build.clj
+&amp;#40;require 'cljs.build.api&amp;#41;
+
+&amp;#40;cljs.build.api/build &amp;quot;src&amp;quot;
+                      {:main 'hello-world.core
+                       :output-to &amp;quot;out/main.js&amp;quot;
+                       :output-dir &amp;quot;out&amp;quot;
+                       :foreign-libs &amp;#91;{:file &amp;quot;libs/d3.js&amp;quot;
+                                       :provides &amp;#91;&amp;quot;d3&amp;quot;&amp;#93;
+                                       :module-type :commonjs}&amp;#93;
+                       :source-map &amp;quot;out/map.js&amp;quot;
+                       :optimizations :none}&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;;; core.cljs
+&amp;#40;ns hello-world.core
+  &amp;#40;:require &amp;#91;d3 :as d3&amp;#93;&amp;#41;&amp;#41;
+
+&amp;#40;enable-console-print!&amp;#41;
+
+&amp;#40;def center #js {:margin-left &amp;quot;auto&amp;quot;
+                 :margin-right &amp;quot;auto&amp;quot;
+                 :display &amp;quot;block&amp;quot;}&amp;#41;
+
+&amp;#40;def body &amp;#40;d3/select &amp;quot;body&amp;quot;&amp;#41;&amp;#41;
+
+&amp;#40;def p &amp;#40;-&amp;gt; body
+           &amp;#40;.append &amp;quot;p&amp;quot;&amp;#41;
+           &amp;#40;.text &amp;quot;Change the color of the circle: &amp;quot;&amp;#41;
+           &amp;#40;.attr &amp;quot;align&amp;quot; &amp;quot;center&amp;quot;&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;def color-input &amp;#40;-&amp;gt; p
+                     &amp;#40;.append &amp;quot;input&amp;quot;&amp;#41;
+                     &amp;#40;.attr #js {:type &amp;quot;text&amp;quot;
+                                 :id &amp;quot;color&amp;quot;}&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;def svg &amp;#40;-&amp;gt; body
+             &amp;#40;.append &amp;quot;svg&amp;quot;&amp;#41;
+             &amp;#40;.attr #js {:width &amp;quot;300px&amp;quot;
+                         :height &amp;quot;300px&amp;quot;}&amp;#41;
+             &amp;#40;.style center&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;def circle &amp;#40;-&amp;gt; svg
+                &amp;#40;.append &amp;quot;circle&amp;quot;&amp;#41;
+                &amp;#40;.attr #js {:cx &amp;quot;50%&amp;quot;
+                            :cy &amp;quot;50%&amp;quot;
+                            :r 120}&amp;#41;
+                &amp;#40;.style #js {:fill &amp;quot;black&amp;quot;}&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;defn update-color &amp;#91;color&amp;#93;
+  &amp;#40;-&amp;gt; circle
+      .transition
+      &amp;#40;.delay 250&amp;#41;
+      &amp;#40;.duration 500&amp;#41;
+      &amp;#40;.style #js {:fill color}&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;.on color-input &amp;quot;input&amp;quot; #&amp;#40;-&amp;gt; &amp;#40;.-value &amp;#40;.getElementById js/document &amp;quot;color&amp;quot;&amp;#41;&amp;#41;
+                              update-color&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Unfortunately, when we compile our example and then try to run it in the browser, we get the following error:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week6-error.png&quot; alt=&quot;d3 error&quot; /&gt;&lt;/p&gt;&lt;p&gt;Let's have a look at the source code.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week6-error2.png&quot; alt=&quot;d3 error&quot; /&gt;&lt;/p&gt;&lt;p&gt;It seems that we get an error when trying to access d3. The compiled JavaScript for this looks as follows.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;hello&amp;#95;world.core.body = module$libs$d3.select.call&amp;#40;null,&amp;quot;body&amp;quot;&amp;#41;;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This looks good so far. Let's have a closer look at the &lt;code&gt;module$libs$d3&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week6-empty.png&quot; alt=&quot;d3 empty object&quot; /&gt;&lt;/p&gt;&lt;p&gt;Oh, what happened there? Why is &lt;code&gt;module$libs$d3&lt;/code&gt; an empty object? If we have a look at the code of the d3 module which was converted with the Google Closure compiler, we can see the following.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;if &amp;#40;typeof define === &amp;quot;function&amp;quot; &amp;amp;&amp;amp; define.amd&amp;#41; {
+    define&amp;#40;d3&amp;#41;;
+} else if &amp;#40;typeof module === &amp;quot;object&amp;quot; &amp;amp;&amp;amp; module$libs$d3&amp;#41; {
+    module$libs$d3 = d3
+}
+&lt;/code&gt;&lt;/pre&gt;The code is checking if &lt;code&gt;module&lt;/code&gt; is an object and only then assigns whatever the variable d3 holds to our new namespace &lt;code&gt;module$libs$d3&lt;/code&gt;. Unfortunately, &lt;code&gt;module&lt;/code&gt; will not be defined in the browser so our &lt;code&gt;module$libs$d3&lt;/code&gt; namespace will remain empty. Here is the original code of the d3 library.&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;if &amp;#40;typeof define === &amp;quot;function&amp;quot; &amp;amp;&amp;amp; define.amd&amp;#41; {
+    define&amp;#40;d3&amp;#41;;
+} else if &amp;#40;typeof module === &amp;quot;object&amp;quot; &amp;amp;&amp;amp; module.exports&amp;#41; {
+    module.exports = d3;
+}
+&lt;/code&gt;&lt;/pre&gt;This is a common JavaScript idiom, which is called &lt;a href='http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/'&gt;UMD&lt;/a&gt; (Universal Module Definition). The goal of the UMD pattern is to support AMD as well as CommonJS, since both module specifications have become quite popular over time. Not just d3, but many other libraries use the UMD pattern, in fact all four libraries mentioned above use some variant of the UMD pattern. Unfortunately, this also means, that we can't include any of those libraries using the new &lt;code&gt;module-type&lt;/code&gt; compiler option. For this to work, we will hopefully submit another pull request to the Google Closure compiler soon with some modifications to the &lt;code&gt;ProcessCommonJSModules&lt;/code&gt; class.
+</description>
+<pubDate>
+Wed, 08 Jul 2015 00:00:00 +0200
+</pubDate>
+<author>
+Maria Neise
+</author>
+</item>
 <item>
 <guid>
 http://mneise.github.io/posts/2015-06-29-week-5.html
