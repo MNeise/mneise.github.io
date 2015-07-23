@@ -15,11 +15,31 @@ http://mneise.github.io
 Some updates and thoughts
 </description>
 <lastBuildDate>
-Wed, 08 Jul 2015 09:08:30 +0200
+Thu, 23 Jul 2015 17:03:13 -0500
 </lastBuildDate>
 <author>
 Maria Neise
 </author>
+<item>
+<guid>
+http://mneise.github.io/posts/2015-07-23-week-7-and-8.html
+</guid>
+<link>
+http://mneise.github.io/posts/2015-07-23-week-7-and-8.html
+</link>
+<title>
+GSoC: Week 7/8 - Clojure Berlin &amp; Google Closure compiler
+</title>
+<description>
+&lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Writing those posts still takes me some time since writing doesn't come natural to me. Or maybe it's because English is not my first language. So, I didn't write a post for week 7, because I already spent some time on preparing slides about GSoC, and wanted to use the rest of the time for coding. Long story short, I now have a more time again, so here goes the post for week 7 and 8 ;)&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;clojurebridge&amp;#95;berlin&amp;#95;and&amp;#95;clojure&amp;#95;berlin&amp;#95;dojo&quot;&gt;&lt;/a&gt;ClojureBridge Berlin and Clojure Berlin Dojo&lt;/h4&gt;&lt;p&gt;I was in Berlin during the last couple of weeks. During this time I was lucky enough to meet some great people (&lt;a href='https://twitter.com/malweene'&gt;Malwine&lt;/a&gt;, &lt;a href='https://twitter.com/martinklepsch'&gt;Martin&lt;/a&gt; and &lt;a href='https://twitter.com/jellea'&gt;Jelle&lt;/a&gt; to only mention a few) from the Berlin Clojure community and gave two talks about GSoC and my project. The first talk was a short lightning talk at the &lt;a href='http://www.clojurebridge.org/events/2015-07-10-berlin'&gt;Clojure Bridge Berlin workshop&lt;/a&gt; and was intended to inform the attendees about the GSoC program and motivate them to apply. I've also managed to sneak some ClojureScript into the talk and tried to explain what ClojureScript is about :)&lt;/p&gt;&lt;p&gt;&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; lang=&quot;en&quot; width=&quot;400&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;A very motivational talk by &lt;a href=&quot;https://twitter.com/mayaneise&quot;&gt;@mayaneise&lt;/a&gt; about Google Summer of Code at &lt;a href=&quot;https://twitter.com/hashtag/ClojureBridge?src=hash&quot;&gt;#ClojureBridge&lt;/a&gt; Berlin &lt;a href=&quot;http://t.co/ZSQSApGFZO&quot;&gt;pic.twitter.com/ZSQSApGFZO&lt;/a&gt;&lt;/p&gt;&amp;mdash; Clojure Berlin (@ClojureBerlin) &lt;a href=&quot;https://twitter.com/ClojureBerlin/status/619847638574329857&quot;&gt;July 11, 2015&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;&lt;p&gt;The second talk was at the &lt;a href='http://www.meetup.com/Clojure-Berlin/events/222655704/'&gt;Clojure Berlin Dojo&lt;/a&gt; meetup and was more focused on the project itself rather than the GSoC program. Personally, I wasn't sure if I put too much/little detail into the talk, but people seemed to be interested, since there were some questions afterwards. Overall, it was really great meeting people I've only known from the Internet so far and everyone was as nice and welcoming as they are online.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;google&amp;#95;closure&amp;#95;compiler&quot;&gt;&lt;/a&gt;Google Closure compiler&lt;/h4&gt;&lt;p&gt;Regarding the progress of the project, we managed to fix two bugs. The first one was a &lt;a href='http://dev.clojure.org/jira/browse/CLJS-1341'&gt;CommonJS processing bug&lt;/a&gt; in the ClojureScript compiler, where we were invoking a Google Closure compiler method to convert an AMD module to a CommonJS module even if the module was already a CommonJS module. The second was a &lt;a href='https://github.com/google/closure-compiler/pull/1042'&gt;bug in the Google Closure compiler&lt;/a&gt; that occurred when converting a CommonJS module to a Google Closure module. This bug fix is one of two that brings us a step closer to being able to convert more complex JavaScript libraries, such as React.js, to Google Closure modules. The other fix is still outstanding, meaning that the pull request to the Google Closure compiler has not been merged yet, and &lt;a href='https://github.com/google/closure-compiler/pull/1048'&gt;targets JavaScript libraries that are using the UMD pattern&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Additionally, some functionality of the Google Closure compiler, that we are using to convert JavaScript modules to Google Closure modules, has been rewritten and improved. So we needed to figure out how those changes would affect us and as it turns out, we will need to do some refactoring to be able to use the Google Closure compiler for converting JavaScript modules. If you want to learn more about the changes to the Google Closure compiler, check out the &lt;a href='https://github.com/google/closure-compiler/pull/1043'&gt;pull request&lt;/a&gt; or have a look at the &lt;a href='https://groups.google.com/forum/#!topic/closure-compiler-discuss/gI5Pwoz4Upc'&gt;Google Closure compiler mailing list thread&lt;/a&gt;.&lt;/p&gt;
+</description>
+<pubDate>
+Thu, 23 Jul 2015 00:00:00 -0500
+</pubDate>
+<author>
+Maria Neise
+</author>
+</item>
 <item>
 <guid>
 http://mneise.github.io/posts/2015-07-08-week-6.html
@@ -28,7 +48,7 @@ http://mneise.github.io/posts/2015-07-08-week-6.html
 http://mneise.github.io/posts/2015-07-08-week-6.html
 </link>
 <title>
-GSoC: Week 6
+GSoC: Week 6 - UMD pattern
 </title>
 <description>
 &lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;In this post I will write a bit about the midterm evaluations and also about the UMD pattern.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;midterm&amp;#95;evaluations&quot;&gt;&lt;/a&gt;Midterm evaluations&lt;/h4&gt;&lt;p&gt;The Google Summer of Code midterm evaluations were due last Friday (July 3rd), meaning that every student and every mentor had to submit an evaluation about the current progress of their project and students had to evaluate their mentor(s) and vice versa. In almost all cases, students will never see the mentor's evaluation and a mentor will never see the student's evaluation. Only the GSoC program administrators have access to all the evaluation data. Students will only receive an email notifying them if they have passed or failed the midterm evaluation. So, it is recommended that students talk directly to their mentor and ask about feedback. My mentor, David Nolen, and I have been trying to do this throughout the project, and I am happy to announce that I have passed my midterm evaluation :).&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;umd&quot;&gt;&lt;/a&gt;UMD&lt;/h4&gt;&lt;p&gt;To test the CommonJS and AMD support, I checked &lt;a href='https://github.com/cljsjs/packages'&gt;CLJSJS&lt;/a&gt; for JavaScript libraries and tried to include them into a ClojureScript project using the CommonJS or AMD module compiler option. For example, I tried to include &lt;a href='http://d3js.org/'&gt;d3&lt;/a&gt;, &lt;a href='http://hammerjs.github.io/'&gt;hammerjs&lt;/a&gt;, &lt;a href='http://chancejs.com/'&gt;Chance&lt;/a&gt; and &lt;a href='https://codemirror.net/index.html'&gt;CodeMirror&lt;/a&gt;. The following is a small example which uses d3 to change the color of a circle depending on the value given in an input field.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;;; build.clj
@@ -101,7 +121,7 @@ GSoC: Week 6
 &lt;/code&gt;&lt;/pre&gt;This is a common JavaScript idiom, which is called &lt;a href='http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/'&gt;UMD&lt;/a&gt; (Universal Module Definition). The goal of the UMD pattern is to support AMD as well as CommonJS, since both module specifications have become quite popular over time. Not just d3, but many other libraries use the UMD pattern, in fact all four libraries mentioned above use some variant of the UMD pattern. Unfortunately, this also means, that we can't include any of those libraries using the new &lt;code&gt;module-type&lt;/code&gt; compiler option. For this to work, we will hopefully submit another pull request to the Google Closure compiler soon with some modifications to the &lt;code&gt;ProcessCommonJSModules&lt;/code&gt; class.
 </description>
 <pubDate>
-Wed, 08 Jul 2015 00:00:00 +0200
+Wed, 08 Jul 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
@@ -115,13 +135,13 @@ http://mneise.github.io/posts/2015-06-29-week-5.html
 http://mneise.github.io/posts/2015-06-29-week-5.html
 </link>
 <title>
-GSoC: Week 5
+GSoC: Week 5 - Midterm evaluations
 </title>
 <description>
 &lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;The Google Summer of Code student midterm evaluations are due this week on 3 July 2015 at 19:00 UTC, so I will use this post to write about my experience with the Google Summer of Code program, reflect on the previous 5 weeks and talk about the tasks for the next following 8 weeks.&lt;/p&gt;&lt;p&gt;The Google Summer of Code program has been a great opportunity for me to start contributing to open source and to connect with the Clojure community. Many great projects have come out of it, such as &lt;a href='https://twitter.com/ambrosebs'&gt;Ambrose Bonnaire-Sergeant's&lt;/a&gt; &lt;a href='http://typedclojure.org/'&gt;Typed Clojure&lt;/a&gt;, and students as well as organizations are benefiting from GSoC. As much as I value the GSoC program, there is still room for improvement. In particular, communication between GSoC students is not promoted by the program organizers which is likely one reason for the lack of community between GSoC students.&lt;/p&gt;&lt;p&gt;Then again, the Clojure and ClojureScript community has been really welcoming and helpful. Many people seem to be excited about this project and I've only had positive interactions with other Clojurians so far. My mentor for this project, &lt;a href='https://twitter.com/swannodette'&gt;David Nolen&lt;/a&gt;, has been more than helpful, very responsive and has been doing a lot to promote this GSoC project. Also, a big thank you to &lt;a href='https://twitter.com/mfikes'&gt;Mike Fikes&lt;/a&gt;, who has been trying out the CommonJS support in &lt;a href='http://blog.fikesfarm.com/posts/2015-06-17-commonjs-libs-in-ambly.html'&gt;Ambly&lt;/a&gt; and has given me very valuable feedback.&lt;/p&gt;&lt;p&gt;Regarding the project itself, we are making good progress and are sticking to the estimated schedule. We've added support for CommonJS, AMD and ECMAScript 2015 to ClojureScript and submitted two pull requests to the Google Closure compiler. For the following weeks, we will continue to improve the JavaScript module support and will work on generating externs for foreign libraries. So stay tuned, there is more to come ;)&lt;/p&gt;
 </description>
 <pubDate>
-Mon, 29 Jun 2015 00:00:00 +0200
+Mon, 29 Jun 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
@@ -135,7 +155,7 @@ http://mneise.github.io/posts/2015-06-22-week-4.html
 http://mneise.github.io/posts/2015-06-22-week-4.html
 </link>
 <title>
-GSoC: Week 4
+GSoC: Week 4 - Adding AMD and ECMAScript 2015 support
 </title>
 <description>
 &lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Last week, we made further progress in adding JavaScript module support to ClojureScript. David merged two patches, one for &lt;a href='https://github.com/clojure/clojurescript/commit/87f39511a54d7b91ae86f581fda90f280f985816'&gt;AMD module support&lt;/a&gt; and the other for &lt;a href='https://github.com/clojure/clojurescript/commit/ac0b169cb082bd2ff4ac917274cb91628adba947'&gt;ECMAScript 2015 module support&lt;/a&gt;. In this post, I will describe how to use AMD and ECMAScript 2015 modules in a ClojureScript project.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;amd&quot;&gt;&lt;/a&gt;AMD&lt;/h4&gt;&lt;p&gt;Adding support for AMD is very similar to adding support for CommonJS. The only difference is that we first rewrite an AMD module to a CommonJS module before converting it to a Google Closure module. Both can be done with the Google Closure compiler. Currently, the Google Closure compiler supports the following AMD &lt;code&gt;define&lt;/code&gt; signatures:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;define&amp;#40;function&amp;#40;&amp;#41; ...&amp;#41;
@@ -167,7 +187,7 @@ export function hello&amp;#40;name&amp;#41; {
 &lt;/code&gt;&lt;/pre&gt;
 </description>
 <pubDate>
-Mon, 22 Jun 2015 00:00:00 +0200
+Mon, 22 Jun 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
@@ -181,7 +201,7 @@ http://mneise.github.io/posts/2015-06-15-week-3.html
 http://mneise.github.io/posts/2015-06-15-week-3.html
 </link>
 <title>
-GSoC: Week 3
+GSoC: Week 3 - Adding CommonJS support
 </title>
 <description>
 &lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Last week, David merged the first &lt;a href='https://github.com/clojure/clojurescript/commit/47947137127c9a724fafbeb17c5f7af7412809de'&gt;patch&lt;/a&gt; for CommonJS support into the ClojureScript compiler. This is a good first step. Following, I will describe how you can try out the changes and include a CommonJS module into a ClojureScript project.&lt;/p&gt;&lt;h4&gt;&lt;a name=&quot;build&amp;#95;clojurescript&quot;&gt;&lt;/a&gt;Build ClojureScript&lt;/h4&gt;&lt;p&gt;For this to work, we need to compile our own ClojureScript compiler as the most recent version &lt;code&gt;0.0-3308&lt;/code&gt; doesn't include the changes yet. So go ahead and clone the ClojureScript repository:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:clojure/clojurescript.git
@@ -203,7 +223,7 @@ GSoC: Week 3
 &lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;&lt;a name=&quot;known&amp;#95;issues&quot;&gt;&lt;/a&gt;Known issues&lt;/h4&gt;&lt;p&gt;This feature is still &quot;work in progress&quot;. You can read about known issues here:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href='http://dev.clojure.org/jira/browse/CLJS-1312'&gt;CommonJS support: Properly convert JS lib idiom for adding module support for multiple specifications&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://dev.clojure.org/jira/browse/CLJS-1311'&gt;Improve error reporting when converting CommonJS modules&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 </description>
 <pubDate>
-Mon, 15 Jun 2015 00:00:00 +0200
+Mon, 15 Jun 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
@@ -217,7 +237,7 @@ http://mneise.github.io/posts/2015-06-08-week-2.html
 http://mneise.github.io/posts/2015-06-08-week-2.html
 </link>
 <title>
-GSoC: Week 2
+GSoC: Week 2 - ClojureScript's JS dependency index
 </title>
 <description>
 &lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;During week 2 we continued to focus on adding support for CommonJS libraries to ClojureScript. An integral part of the CommonJS specification is the &lt;code&gt;require&lt;/code&gt; function. The &lt;code&gt;require&lt;/code&gt; function is used to import functionality that has been exported by other modules. In the following I will try to describe what we need to consider when adding support for CommonJS modules which depend on other modules and how a possible solution could look like.&lt;/p&gt;&lt;p&gt;Let's assume we have the following two CommonJS modules:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;// libs/german.js
@@ -293,7 +313,7 @@ module$libs$greeting.hello = function&amp;#40;name&amp;#41; {
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To learn more about the dependency index, have a look at &lt;a href='https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/js&amp;#95;deps.clj'&gt;js&amp;#95;deps.clj&lt;/a&gt; in the ClojureScript project. To see the current progress for this project, have a look at the GitHub &lt;a href='https://github.com/mneise/clojurescript/tree/CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
 </description>
 <pubDate>
-Mon, 08 Jun 2015 00:00:00 +0200
+Mon, 08 Jun 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
@@ -307,7 +327,7 @@ http://mneise.github.io/posts/2015-06-02-week-1.html
 http://mneise.github.io/posts/2015-06-02-week-1.html
 </link>
 <title>
-GSoC: Week 1
+GSoC: Week 1 - Converting JavaScript modules to Google Closure modules
 </title>
 <description>
 &lt;p&gt;&lt;em&gt;I have been accepted to this years Google's Summer of Code to work on ClojureScript. The goal of my project is to improve the integration of ClojureScript with the existing JavaScript ecosystem. I will post weekly updates about the progress of the project here. For more details about the project have a look at the ClojureScript GitHub &lt;a href='https://github.com/clojure/clojurescript/wiki/Google-Summer-of-Code-2015'&gt;wiki page&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Last week was the first week of my Google's Summer of Code project. The first part of the project that I will be working on is adding JavaScript module support to ClojureScript, meaning that CommonJS, AMD and ECMAScript 6 modules can be included into a ClojureScript project. For this, we will be using functionality that is already included in the Google Closure compiler. The Google Closure compiler has the classes &lt;code&gt;ProcessCommonJSModules&lt;/code&gt; and &lt;code&gt;ProcessEs6Modules&lt;/code&gt;, which each convert either a CommonJS or ECMAScript 6 module into a Google Closure module. To be able to use those two classes directly from within the ClojureScript compiler, we needed to make the classes and its constructors public. Luckily, our &lt;a href='https://github.com/google/closure-compiler/pull/952'&gt;pull request&lt;/a&gt; to the Google Closure compiler project got accepted and our changes should be included in the next release of the project. With those changes in place, I started off by working on including a CommonJS module into a ClojureScript project. Following, I will try to describe which functionality we will need to add to the ClojurScript compiler so that users can include a CommonJS module without modifying it.&lt;/p&gt;&lt;p&gt;Assume we have the following simple CommonJS module in &lt;code&gt;libs/greeting.js&lt;/code&gt;:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;exports.hello = function&amp;#40;name&amp;#41; {
@@ -351,7 +371,7 @@ cljs.core.println.call&amp;#40;null,module$libs$greeting.hello&amp;#40;&amp;quot
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Finally, we get our &lt;code&gt;Hello, World!&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/week1-hello.png&quot; alt=&quot;Hello, World!&quot; /&gt;&lt;/p&gt;&lt;p&gt;To see the current progress, have a look at the GitHub &lt;a href='https://github.com/mneise/clojurescript/tree/CLJS-1092'&gt;branch&lt;/a&gt;.&lt;/p&gt;
 </description>
 <pubDate>
-Tue, 02 Jun 2015 00:00:00 +0200
+Tue, 02 Jun 2015 00:00:00 -0500
 </pubDate>
 <author>
 Maria Neise
