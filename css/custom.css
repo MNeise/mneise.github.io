@@ -13,3 +13,16 @@
 pre {
     background-color: #f0f0f0;
 }
+
+.center {
+    margin: 10px auto;
+    display: block;
+}
+
+#app input {
+    width: 200px;
+    box-shadow: none;
+    border: solid 1px #ddd;
+    -webkit-box-shadow: none;
+    font-size: 13px;
+}
